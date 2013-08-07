@@ -1,3 +1,9 @@
+rsync (3.0.9-4.1) unstable; urgency=low
+
+  * Add local copy file sizes
+
+ -- Dan Walkes <danwalkes@trellis-logic.com>  Wed, 07 Aug 2013 14:37:11 +0300
+
 rsync (3.0.9-4) unstable; urgency=low
 
   * mark rsync package as Multi-Arch: foreign.

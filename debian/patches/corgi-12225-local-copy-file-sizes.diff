@@ -1,0 +1,32 @@
+diff --git a/generator.c b/generator.c
+index 91fd687..83aba9e 100644
+--- a/generator.c
++++ b/generator.c
+@@ -1002,6 +1002,9 @@ static int copy_altdest_file(const char *src, const char *dest, struct file_stru
+ 	partialptr = partial_dir ? partial_dir_fname(dest) : NULL;
+ 	preserve_xattrs = 0; /* xattrs were copied with file */
+ 	ok = finish_transfer(dest, copy_to, src, partialptr, file, 1, 0);
++	if (ok) {
++		stats.total_transferred_size += F_LENGTH(file);
++	}
+ 	preserve_xattrs = save_preserve_xattrs;
+ 	cleanup_disable();
+ 	return ok ? 0 : -1;
+diff --git a/main.c b/main.c
+index e23e570..b215b42 100644
+--- a/main.c
++++ b/main.c
+@@ -191,8 +191,12 @@ static void handle_stats(int f)
+ 		show_flist_stats();
+ 	}
+ 
+-	if (am_generator)
++	if (am_generator && (stats.total_transferred_size > 0) ) {
++		/* CORGI-12225:  Include a count of local copied files */
++		rprintf(FINFO,"Total local copy transferred file size: %s bytes\n",
++			human_num(stats.total_transferred_size));
+ 		return;
++	}
+ 
+ 	if (am_daemon) {
+ 		if (f == -1 || !am_sender)
