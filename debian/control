@@ -2,7 +2,7 @@ Source: rsync
 Section: net
 Priority: optional
 Maintainer: Paul Slootman <paul@debian.org>
-Build-Depends: libpopt-dev,libacl1-dev,libattr1-dev
+Build-Depends: autoconf,libpopt-dev,libacl1-dev,libattr1-dev
 Standards-Version: 3.9.3
 Homepage: http://rsync.samba.org/
 
